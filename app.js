@@ -45,9 +45,9 @@ app.get('/search', (req, res) => {
     )
   })
   if (restaurants.length > 0) {
-    res.render('index', { restaurants: restaurants, keyword: keyword })
+    res.render('index', { restaurants, keyword })
   } else {
-    res.render('index', { keyword: keyword })
+    res.render('index', { keyword })
   }
 })
 
