@@ -3,7 +3,7 @@ const app = express()
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose') // 載入 mongoose
 
-const dataList = require('./restaurant.json')
+const Restaurant = require('./Models/database.js')
 
 // Define server related variables
 const port = 3000
@@ -29,33 +29,53 @@ app.use(express.static('public'))
 
 // Route
 app.get('/', (req, res) => {
-  res.render('index', { restaurants: dataList.results })
+  renderIndexFromModel(res,Restaurant)
 })
 app.get('/index', (req, res) => {
-  res.render('index', { restaurants: dataList.results })
+  renderIndexFromModel(res,Restaurant)
 })
 
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword.toLowerCase()
-  const restaurants = dataList.results.filter((item) => {
-    return (
-      item.name.toLowerCase().includes(keyword.toLowerCase()) ||
-      item.name_en.toLowerCase().includes(keyword.toLowerCase()) ||
-      item.category.toLowerCase().includes(keyword.toLowerCase())
-    )
+  Restaurant.find()
+  .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
+  .then(restaurants => {
+    restaurants = restaurants.filter((item) => {
+      return (
+        item.name.toLowerCase().includes(keyword.toLowerCase()) ||
+        item.name_en.toLowerCase().includes(keyword.toLowerCase()) ||
+        item.category.toLowerCase().includes(keyword.toLowerCase())
+      )
+    })
+    if (restaurants.length > 0) {
+      res.render('index', { restaurants, keyword })
+    } else {
+      const searching = 'searching'
+      res.render('index', { keyword, searching })
+    }
   })
-  if (restaurants.length > 0) {
-    res.render('index', { restaurants, keyword })
-  } else {
-    res.render('index', { keyword })
-  }
+  .catch(error => console.error(error))
+})
+
 })
 
 app.get('/restaurants/:id', (req, res) => {
-  res.render('show', { item: dataList.results[req.params.id - 1] })
+  Restaurant.find()
+  .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
+  .then(restaurants => {
+    res.render('show', { item: restaurants[req.params.id - 1] })
+  })
+  .catch(error => console.error(error))
 })
 
 // Start and listen the server
 app.listen(port, () => {
   console.log(`Express is running on http://localhost:${port}`)
 })
+
+function renderIndexFromModel(res, model) {
+  model.find()
+  .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
+  .then(restaurants => res.render('index', { restaurants }))
+  .catch(error => console.error(error))
+}

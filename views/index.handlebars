@@ -41,10 +41,17 @@
           {{/each}}
         </div>
       {{else}}
-        <div class="container text-center mt-5">
-          <h2><i class="far fa-frown"></i> Oops! 找不到餐廳！</h2>
-          <h4>請嘗試其他關鍵字</h4>
-        </div>
+        {{#if searching}}
+          <div class="container text-center mt-5">
+            <h2><i class="far fa-frown"></i> Oops! 找不到餐廳！</h2>
+            <h4>請嘗試其他關鍵字</h4>
+          </div>
+        {{else}}
+          <div class="container text-center mt-5">
+            <h2><i class="far fa-frown"></i> Oops! 還沒有新增任何餐廳喔！</h2>
+            <h4>趕快來新增吧！</h4>
+          </div>
+        {{/if}}
       {{/if}}
     </div>
   </div>
