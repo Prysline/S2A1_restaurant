@@ -86,10 +86,11 @@ app.post('/new', (req, res) => {
 })
 
 app.get('/restaurants/:id', (req, res) => {
+  const id = Number(req.params.id)
   Restaurant.find()
   .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
   .then(restaurants => {
-    res.render('show', { item: restaurants[req.params.id - 1] })
+    res.render('show', { item: restaurants.find(item => item.id === id) })
   })
   .catch(error => console.error(error))
 })
