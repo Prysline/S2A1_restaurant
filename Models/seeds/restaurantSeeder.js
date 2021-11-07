@@ -13,12 +13,12 @@ db.on('error', () => {
 // 連線成功
 db.once('open', () => {
   console.log('mongodb connected!')
-  getSeederFromJSON(dataList)
+  getSeederFromJSON(dataList.results)
   console.log('get seeds done')
 })
 
 function getSeederFromJSON (json) {
-  json.foreach(item => {
+  json.forEach(item => {
     Restaurant.create(item)
   })
 }
