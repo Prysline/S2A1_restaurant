@@ -2,7 +2,7 @@
 <div id="top"></div>
 <p>
   <a href="https://github.com/Prysline/S2A1_restaurant" target="_blank">
-  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-2.0.0-blue.svg?cacheSeconds=2592000" />
   </a>
   <a href="https://github.com/Prysline/S2A1_restaurant/blob/main/LICENSE" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/github/license/Prysline/S2A1_restaurant.svg" />
@@ -48,10 +48,17 @@
 - 卡片式餐廳清單
 - 能用餐廳中英文名稱或是餐廳類型查找
 - 點擊餐廳圖片可瀏覽詳細資訊
+- 新增餐廳資訊
+- 修改餐廳資訊
+- 刪除餐廳資訊
 
 ### 截圖 Screenshot
-
-![index](https://github.com/Prysline/S2A1_restaurant/blob/main/public/images/index.png) ![info](https://github.com/Prysline/S2A1_restaurant/blob/main/public/images/info.png)
+<div>
+  <img alt="index" src="https://github.com/Prysline/S2A1_restaurant/blob/main/public/images/index.png" style="display: inline-box; width: 12em;">
+  <img alt="info" src="https://github.com/Prysline/S2A1_restaurant/blob/main/public/images/info.png" style="display: inline-box; width: 12em;">
+  <img alt="new" src="https://github.com/Prysline/S2A1_restaurant/blob/main/public/images/new.png" style="display: inline-box; width: 12em;">
+  <img alt="edit" src="https://github.com/Prysline/S2A1_restaurant/blob/main/public/images/edit.png" style="display: inline-box; width: 12em;">
+</div>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -61,6 +68,9 @@
 - [Express](https://expressjs.com/)
 - [Express-handlebars](https://github.com/express-handlebars/express-handlebars)
 - [nodemon](https://www.npmjs.com/package/nodemon)
+- [mongoDB](https://www.mongodb.com/) (v4.2.17)
+- [mongoose](https://mongoosejs.com/)
+- [Robo 3T](https://robomongo.org/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -76,6 +86,8 @@
   npm install -g nodemon
   ```
 
+所有新增、編輯、移除等關於資料庫的功能，均建立在使用 [mongoDB](https://www.mongodb.com/) + [mongoose](https://mongoosejs.com/) 的環境下。
+
 ### 安裝 Installation
 
 1. 在要安裝的位置開啟終端機(terminal) clone 專案檔案
@@ -90,7 +102,11 @@
    ```sh
    npm install
    ```
-4. 使用 Node.js 執行 Express 伺服器（更新檔案時需要另外 ctrl+C 退出 Node.js 環境並重新啟動）
+4. 建立種子資料 （須連線 mongoDB 伺服器）
+   ```sh
+   npm run seed
+   ```
+5. 使用 Node.js 執行 Express 伺服器（更新檔案時需要另外 ctrl+C 退出 Node.js 環境並重新啟動）
    ```sh
    npm run start
    ```
@@ -98,7 +114,7 @@
    ```sh
    npm run dev
    ```
-5. 在瀏覽器網址列輸入 `http://localhost:3000/` 瀏覽網站
+6. 在瀏覽器網址列輸入 `http://localhost:3000/` 瀏覽網站
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
