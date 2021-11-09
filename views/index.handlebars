@@ -20,12 +20,12 @@
   <div class="row">
     <div class="col-md-10 col-12 mx-auto">
       {{#if restaurants}}
-        <div class="card-deck">
+        <div class="row justify-content-center">
           {{#each restaurants}}
             <!-- render restaurant list -->
             <a href="/restaurants/{{this.id}}" class="text-secondary">
-              <div class="card mb-3" style="width:17.9rem;">
-                <img class="card-img-top" src="{{this.image}}" alt="{{this.name}}">
+              <div class="card mb-3 mx-2" style="width:18rem;">
+                <img class="card-img-top" style="height:11.25rem;" src="{{this.image}}" alt="{{this.name}}">
                 <div class="card-body p-3">
                   <h6 class="card-title mb-1">{{this.name}}</h6>
                   <div class="restaurant-category mb-1">
@@ -35,6 +35,13 @@
                     {{this.rating}}
                     <i class="fas fa-star fa-xs"></i>
                   </span>
+                </div>
+                <div class="card-footer text-right">
+                  <nav class="nav justify-content-end">
+                    <a class="nav-link px-1" href="/restaurants/{{this.id}}/edit" data-id="{{this.id}}">Edit</a>
+                    <a class="nav-link px-3" href="/restaurants/{{this.id}}" data-id="{{this.id}}">Detail</a>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                  </nav>
                 </div>
               </div>
             </a>
