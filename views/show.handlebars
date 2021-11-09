@@ -2,7 +2,12 @@
 <div class="container">
   <div class="row">
     <div class="col-12 col-md-10 mx-auto">
-
+      <nav class="nav justify-content-end">
+        <a class="nav-link px-3" href="./{{item.id}}/edit" data-id="{{this.id}}">Edit</a>
+        <form action="./{{ item._id }}/delete" method="POST" style="display: inline;">
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      </nav>
       <p class="mb-1">
         <span class="text-secondary">
           <i class="fas fa-utensils pr-2"></i>
@@ -16,10 +21,20 @@
           <i class="fas fa-map-marker-alt pr-2"></i>
           地址：
         </span>
-        {{item.location}}
-        <a href="{{item.google_map}}" class="text-secondary" target="_blank">
-          <i class="fas fa-location-arrow pr-2 fa-xs"></i>
-        </a>
+        {{#if item.location}}
+          {{item.location}}
+        {{else}}
+          尚未填寫
+        {{/if}}
+        {{#if item.google_map}}
+          <a href="{{item.google_map}}" class="text-secondary" target="_blank">
+            <i class="fas fa-location-arrow pr-2 fa-xs"></i>
+          </a>
+        {{else}}
+          <a href="#" class="text-secondary" style="cursor: default;">
+            <i class="fas fa-location-arrow pr-2 fa-xs"></i>
+          </a>
+        {{/if}}
       </p>
 
       <p class="mb-1">
@@ -27,11 +42,19 @@
           <i class="fas fa-mobile-alt pr-2"></i>
           電話：
         </span>
-        {{item.phone}}
+        {{#if item.phone}}
+          {{item.phone}}
+        {{else}}
+          尚未填寫
+        {{/if}}
       </p>
 
       <p class="mb-5">
-        {{item.description}}
+        {{#if item.description}}
+          {{item.description}}
+        {{else}}
+          這家店還沒有任何描述！
+        {{/if}}
       </p>
 
       <img class="rounded mx-auto d-block mb-4 w-100" src="{{item.image}}" alt="{{item.name}}" style="max-width: 600px;">

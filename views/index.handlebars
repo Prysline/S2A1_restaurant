@@ -20,12 +20,12 @@
   <div class="row">
     <div class="col-md-10 col-12 mx-auto">
       {{#if restaurants}}
-        <div class="card-columns">
+        <div class="row justify-content-center">
           {{#each restaurants}}
             <!-- render restaurant list -->
             <a href="/restaurants/{{this.id}}" class="text-secondary">
-              <div class="card mb-3">
-                <img class="card-img-top" src="{{this.image}}" alt="{{this.name}}">
+              <div class="card mb-3 mx-2" style="width:18rem;">
+                <img class="card-img-top" style="height:11.25rem;" src="{{this.image}}" alt="{{this.name}}">
                 <div class="card-body p-3">
                   <h6 class="card-title mb-1">{{this.name}}</h6>
                   <div class="restaurant-category mb-1">
@@ -36,15 +36,31 @@
                     <i class="fas fa-star fa-xs"></i>
                   </span>
                 </div>
+                <div class="card-footer text-right">
+                  <nav class="nav justify-content-end">
+                    <a class="nav-link px-1" href="/restaurants/{{this.id}}/edit" data-id="{{this.id}}">Edit</a>
+                    <a class="nav-link px-3" href="/restaurants/{{this.id}}" data-id="{{this.id}}">Detail</a>
+                    <form action="/restaurants/{{ this._id }}/delete" method="POST" style="display: inline;">
+                      <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                  </nav>
+                </div>
               </div>
             </a>
           {{/each}}
         </div>
       {{else}}
-        <div class="container text-center mt-5">
-          <h2><i class="far fa-frown"></i> Oops! 找不到餐廳！</h2>
-          <h4>請嘗試其他關鍵字</h4>
-        </div>
+        {{#if searching}}
+          <div class="container text-center mt-5">
+            <h2><i class="far fa-frown"></i> Oops! 找不到餐廳！</h2>
+            <h4>請嘗試其他關鍵字</h4>
+          </div>
+        {{else}}
+          <div class="container text-center mt-5">
+            <h2><i class="far fa-frown"></i> Oops! 還沒有新增任何餐廳喔！</h2>
+            <h4>趕快來新增吧！</h4>
+          </div>
+        {{/if}}
       {{/if}}
     </div>
   </div>
