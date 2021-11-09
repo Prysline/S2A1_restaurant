@@ -40,7 +40,9 @@
                   <nav class="nav justify-content-end">
                     <a class="nav-link px-1" href="/restaurants/{{this.id}}/edit" data-id="{{this.id}}">Edit</a>
                     <a class="nav-link px-3" href="/restaurants/{{this.id}}" data-id="{{this.id}}">Detail</a>
-                    <button type="button" class="btn btn-danger">Delete</button>
+                    <form action="/restaurants/{{ this._id }}/delete" method="POST" style="display: inline;">
+                      <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
                   </nav>
                 </div>
               </div>
