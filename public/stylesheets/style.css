@@ -99,3 +99,35 @@ header {
   }
   
 }
+
+.tip-item {
+  z-index: 10;
+  display: flex;
+  position: fixed;
+  margin: 0 auto;
+  align-items: center;
+  width: 15vw;
+  min-width: 15rem;
+  left: 0;
+  top: 48vh;
+  right: 0;
+  opacity: 0;
+  animation-name: show-to-top;
+  animation-duration: 1.5s;
+}
+#tip-wrap .alert {
+  width: 100%;
+}
+
+@keyframes show-to-top {
+  30% {
+    opacity: 1;
+  }
+  55% {
+    opacity: 1;
+  }
+  100% {
+    top: 38vh;
+    opacity: 0;
+  }
+}

@@ -14,13 +14,15 @@
     </div>
   </div>
 </div>
-
+<div id="tip-wrap" data-submit="{{query}}">
+<!-- Display Alert -->
+</div>
 <!-- restaurant list -->
 <div class="container mt-5">
   <div class="row">
     <div class="col-md-10 col-12 mx-auto">
       {{#if restaurants}}
-        <div class="row justify-content-center">
+        <div id="restaurants-wrapper" class="row justify-content-center">
           {{#each restaurants}}
             <!-- render restaurant list -->
             <a href="/restaurants/{{this.id}}" class="text-secondary">
@@ -40,9 +42,7 @@
                   <nav class="nav justify-content-end">
                     <a class="nav-link px-1" href="/restaurants/{{this.id}}/edit" data-id="{{this.id}}">Edit</a>
                     <a class="nav-link px-3" href="/restaurants/{{this.id}}" data-id="{{this.id}}">Detail</a>
-                    <form action="/restaurants/{{ this._id }}/delete" method="POST" style="display: inline;">
-                      <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                    <button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#delete-modal" data-id="{{ this._id }}" data-name="{{this.name}}">Delete</button>
                   </nav>
                 </div>
               </div>
@@ -65,3 +65,37 @@
     </div>
   </div>
 </div>
+<script>
+  const tipWrap = document.querySelector('#tip-wrap')
+  switch(tipWrap.dataset.submit) {
+    case 'new':
+      displaySuccessTip ('成功新增餐廳資訊！')
+      break
+    case 'edit':
+      displaySuccessTip ('已修改餐廳資訊！')
+      break
+    case 'delete':
+      displayDeleteTip ()
+      break
+  }
+  function displaySuccessTip (content) {
+    const alertElement = document.createElement('div')
+    alertElement.innerHTML = `    <div class="tip-item">
+        <div class="alert alert-success fade show text-center" role="alert">
+          <h5 class="my-0">${content}</h5>
+        </div>
+      </div>`
+    tipWrap.innerHTML = ''
+    tipWrap.append(alertElement)
+  }
+  function displayDeleteTip () {
+    const alertElement = document.createElement('div')
+    alertElement.innerHTML = `    <div class="tip-item">
+        <div class="alert alert-danger fade show text-center" role="alert">
+          <h5 class="my-0">已刪除餐廳資訊</h5>
+        </div>
+      </div>`
+    tipWrap.innerHTML = ''
+    tipWrap.append(alertElement)
+  }
+</script>

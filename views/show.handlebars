@@ -1,12 +1,10 @@
 <h1 class="mb-1 restaurant-show-title">{{item.name}}</h1>
 <div class="container">
   <div class="row">
-    <div class="col-12 col-md-10 mx-auto">
+    <div class="col-12 col-md-10 mx-auto" id="restaurants-wrapper">
       <nav class="nav justify-content-end">
         <a class="nav-link px-3" href="./{{item.id}}/edit" data-id="{{this.id}}">Edit</a>
-        <form action="./{{ item._id }}/delete" method="POST" style="display: inline;">
-          <button type="submit" class="btn btn-danger">Delete</button>
-        </form>
+        <button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#delete-modal" data-id="{{ item._id }}" data-name="{{item.name}}">Delete</button>
       </nav>
       <p class="mb-1">
         <span class="text-secondary">

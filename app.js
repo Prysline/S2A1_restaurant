@@ -74,12 +74,15 @@ app.get('/new', (req, res) => {
 app.post('/new', (req, res) => {
   let body = req.body
   Restaurant.find()
-  .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
-  .then(restaurants => {
-    body.id = Object.keys(restaurants).length + 1
-    Restaurant.create(body)
-    .then(()=> {
-      res.redirect('/')
+    .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
+    .then(restaurants => {
+      const length = Object.keys(restaurants).length - 1
+      body.id = restaurants[length].id + 1
+      Restaurant.create(body)
+        .then(() => {
+          res.redirect('/?submit=new')
+        })
+        .catch(error => console.error(error))
     })
     .catch(error => console.error(error))
   })
@@ -131,9 +134,9 @@ app.post('/restaurants/:id/edit', (req, res) => {
 app.post('/restaurants/:id/delete', (req, res) => {
   const id = req.params.id
   Restaurant.findById(id)
-  .then(todo => todo.remove())
-  .then(() => res.redirect('/'))
-  .catch(error => console.log(error))
+    .then(item => item.remove())
+    .then(() => res.redirect('/?submit=delete'))
+    .catch(error => console.log(error))
 })
 
 // Start and listen the server
