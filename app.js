@@ -108,6 +108,25 @@ app.get('/restaurants/:id/edit', (req, res) => {
   .catch(error => console.error(error))
 })
 
+app.post('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  const body = req.body
+  return Restaurant.findById(id)
+    .then(item => {
+      // check content & save
+      Object.keys(body).forEach(key => {
+        if (typeof (item[key]) === 'number') {
+          item[key] = Number(body[key])
+        } else {
+          item[key] = body[key]
+        }
+      })
+      return item.save()
+    })
+    .then(() => res.redirect('/?submit=edit'))
+    .catch(error => console.error(error))
+})
+
 app.post('/restaurants/:id/delete', (req, res) => {
   const id = req.params.id
   Restaurant.findById(id)
