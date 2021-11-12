@@ -10,17 +10,30 @@
             <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
           </div>
         </div>
+        <input type="hidden" name="sort" value="{{sort}}">
       </form>
     </div>
   </div>
 </div>
-<div id="tip-wrap" data-submit="{{query}}">
+<div id="tip-wrap" data-submit="{{submit}}">
 <!-- Display Alert -->
 </div>
 <!-- restaurant list -->
 <div class="container mt-5">
   <div class="row">
     <div class="col-md-10 col-12 mx-auto">
+      <div class="dropdown row">
+        <button class="btn btn-secondary dropdown-toggle mb-2 ml-auto mr-4" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          SORT
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="/?sort=early">舊→新</a>
+          <a class="dropdown-item" href="/?sort=latest">新→舊</a>
+          <a class="dropdown-item" href="/?sort=nameAtoZ">A→Z</a>
+          <a class="dropdown-item" href="/?sort=nameZtoA">Z→A</a>
+          <a class="dropdown-item" href="/?sort=category">類別</a>
+        </div>
+      </div>
       {{#if restaurants}}
         <div id="restaurants-wrapper" class="row justify-content-center">
           {{#each restaurants}}
