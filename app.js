@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose') // 載入 mongoose
+const methodOverride = require('method-override') // 載入 method-override
 
 const Restaurant = require('./Models/database.js')
 
@@ -28,6 +29,7 @@ app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 // setting body-parser
 app.use(express.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 
 // Route
 app.get('/', (req, res) => {
@@ -110,7 +112,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
     .catch(error => console.error(error))
 })
 
-app.post('/restaurants/:id/edit', (req, res) => {
+app.put('/restaurants/:id', (req, res) => {
   const id = req.params.id
   const body = req.body
   return Restaurant.findById(id)
@@ -129,7 +131,7 @@ app.post('/restaurants/:id/edit', (req, res) => {
     .catch(error => console.error(error))
 })
 
-app.post('/restaurants/:id/delete', (req, res) => {
+app.delete('/restaurants/:id', (req, res) => {
   const id = req.params.id
   Restaurant.findById(id)
     .then(item => item.remove())

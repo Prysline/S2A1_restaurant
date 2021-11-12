@@ -8,5 +8,5 @@ restaurantsWrapper.addEventListener('click', function onRestaurantsListClicked (
   deleteRestaurant.innerText = ''
   deleteButtonForm.setAttribute('action', '')
   deleteRestaurant.innerText = name
-  deleteButtonForm.setAttribute('action', `/restaurants/${id}/delete`)
+  deleteButtonForm.setAttribute('action', `/restaurants/${id}?_method=DELETE`)
 })
