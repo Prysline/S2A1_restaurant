@@ -75,6 +75,7 @@ app.post('/new', (req, res) => {
   const body = req.body
   Restaurant.find()
     .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
+    .sort('id')
     .then(restaurants => {
       const length = Object.keys(restaurants).length - 1
       body.id = restaurants[length].id + 1
