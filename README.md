@@ -2,7 +2,7 @@
 <div id="top"></div>
 <p>
   <a href="https://github.com/Prysline/S2A1_restaurant" target="_blank">
-  <img alt="Version" src="https://img.shields.io/badge/version-2.1.0-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-2.2.0-blue.svg?cacheSeconds=2592000" />
   </a>
   <a href="https://github.com/Prysline/S2A1_restaurant/blob/main/LICENSE" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/github/license/Prysline/S2A1_restaurant.svg" />
@@ -52,6 +52,7 @@
 - 修改餐廳資訊
 - 刪除餐廳資訊
 - 新增、修改、刪除餐廳資訊時有提示視窗
+- 首頁新增排序功能
 
 ### 截圖 Screenshot
 <div>
