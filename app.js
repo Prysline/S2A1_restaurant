@@ -41,38 +41,38 @@ app.get('/', (req, res) => {
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword.toLowerCase()
   Restaurant.find()
-  .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
-  .then(restaurants => {
-    restaurants = restaurants.filter((item) => {
-      return (
-        item.name.toLowerCase().includes(keyword.toLowerCase()) ||
-        item.name_en.toLowerCase().includes(keyword.toLowerCase()) ||
-        item.category.toLowerCase().includes(keyword.toLowerCase())
-      )
+    .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
+    .then(restaurants => {
+      restaurants = restaurants.filter((item) => {
+        return (
+          item.name.toLowerCase().includes(keyword.toLowerCase()) ||
+          item.name_en.toLowerCase().includes(keyword.toLowerCase()) ||
+          item.category.toLowerCase().includes(keyword.toLowerCase())
+        )
+      })
+      if (restaurants.length > 0) {
+        res.render('index', { restaurants, keyword })
+      } else {
+        const searching = 'searching'
+        res.render('index', { keyword, searching })
+      }
     })
-    if (restaurants.length > 0) {
-      res.render('index', { restaurants, keyword })
-    } else {
-      const searching = 'searching'
-      res.render('index', { keyword, searching })
-    }
-  })
-  .catch(error => console.error(error))
+    .catch(error => console.error(error))
 })
 
 app.get('/new', (req, res) => {
   Restaurant.find()
-  .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
-  .then(restaurants => {
-    // 列出資料庫中所有出現過的餐廳類別
-    const category = showAllLabelContentFromList(restaurants, 'category')
-    res.render('new', { category })
-  })
-  .catch(error => console.error(error))
+    .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
+    .then(restaurants => {
+      // 列出資料庫中所有出現過的餐廳類別
+      const category = showAllLabelContentFromList(restaurants, 'category')
+      res.render('new', { category })
+    })
+    .catch(error => console.error(error))
 })
 
 app.post('/new', (req, res) => {
-  let body = req.body
+  const body = req.body
   Restaurant.find()
     .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
     .then(restaurants => {
@@ -85,31 +85,29 @@ app.post('/new', (req, res) => {
         .catch(error => console.error(error))
     })
     .catch(error => console.error(error))
-  })
-  .catch(error => console.error(error))
 })
 
 app.get('/restaurants/:id', (req, res) => {
   const id = Number(req.params.id)
   Restaurant.find()
-  .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
-  .then(restaurants => {
-    const item = getItemFromListById (restaurants, id)
-    res.render('show', { item })
-  })
-  .catch(error => console.error(error))
+    .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
+    .then(restaurants => {
+      const item = getItemFromListById(restaurants, id)
+      res.render('show', { item })
+    })
+    .catch(error => console.error(error))
 })
 
 app.get('/restaurants/:id/edit', (req, res) => {
   const id = Number(req.params.id)
   Restaurant.find()
-  .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
-  .then(restaurants => {
-    const category = showAllLabelContentFromList(restaurants, 'category')
-    const item = getItemFromListById (restaurants, id)
-    res.render('edit', { item, category })
-  })
-  .catch(error => console.error(error))
+    .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
+    .then(restaurants => {
+      const category = showAllLabelContentFromList(restaurants, 'category')
+      const item = getItemFromListById(restaurants, id)
+      res.render('edit', { item, category })
+    })
+    .catch(error => console.error(error))
 })
 
 app.post('/restaurants/:id/edit', (req, res) => {
