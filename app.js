@@ -31,10 +31,11 @@ app.use(express.urlencoded({ extended: true }))
 
 // Route
 app.get('/', (req, res) => {
-  renderIndexFromModel(res,Restaurant)
-})
-app.get('/index', (req, res) => {
-  renderIndexFromModel(res,Restaurant)
+  const query = req.query.submit
+  Restaurant.find()
+    .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
+    .then(restaurants => res.render('index', { restaurants, query }))
+    .catch(error => console.error(error))
 })
 
 app.get('/search', (req, res) => {
@@ -139,13 +140,6 @@ app.post('/restaurants/:id/delete', (req, res) => {
 app.listen(port, () => {
   console.log(`Express is running on http://localhost:${port}`)
 })
-
-function renderIndexFromModel(res, model) {
-  model.find()
-  .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
-  .then(restaurants => res.render('index', { restaurants }))
-  .catch(error => console.error(error))
-}
 
 function showAllLabelContentFromList (list, label) {
   return [...new Set(list.map((item) => item[label]))]
