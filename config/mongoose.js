@@ -1,7 +1,7 @@
 const mongoose = require('mongoose') // 載入 mongoose
 
 // setting mongoose server
-mongoose.connect('mongodb://localhost/restaurant-list') // 設定連線到 mongoDB
+mongoose.connect(process.env.MONGODB_URI) // 設定連線到 mongoDB
 // 取得資料庫連線狀態
 const db = mongoose.connection
 // 連線異常

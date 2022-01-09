@@ -6,11 +6,16 @@ const exphbs = require('express-handlebars')
 const methodOverride = require('method-override') // 載入 method-override
 const flash = require('connect-flash')
 
+// dotenv
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 const routes = require('./routes')
 require('./config/mongoose')
 
 // Define server related variables
-const port = 3000
+const port = process.env.PORT
 
 // setting template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
@@ -22,7 +27,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
 app.use(session({
-  secret: 'JustTestSecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
