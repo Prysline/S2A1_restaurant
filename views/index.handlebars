@@ -38,7 +38,7 @@
         <div id="restaurants-wrapper" class="row justify-content-center">
           {{#each restaurants}}
             <!-- render restaurant list -->
-            <a href="/restaurants/{{this.id}}" class="text-secondary">
+            <a href="/restaurants/{{this._id}}" class="text-secondary">
               <div class="card mb-3 mx-2" style="width:18rem;">
                 <img class="card-img-top" style="height:11.25rem;" src="{{this.image}}" alt="{{this.name}}">
                 <div class="card-body p-3">
@@ -53,8 +53,8 @@
                 </div>
                 <div class="card-footer text-right">
                   <nav class="nav justify-content-end">
-                    <a class="nav-link px-1" href="/restaurants/{{this.id}}/edit" data-id="{{this.id}}">Edit</a>
-                    <a class="nav-link px-3" href="/restaurants/{{this.id}}" data-id="{{this.id}}">Detail</a>
+                    <a class="nav-link px-1" href="/restaurants/{{this._id}}/edit" data-id="{{this._id}}">Edit</a>
+                    <a class="nav-link px-3" href="/restaurants/{{this._id}}" data-id="{{this._id}}">Detail</a>
                     <button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#delete-modal" data-id="{{ this._id }}" data-name="{{this.name}}">Delete</button>
                   </nav>
                 </div>
