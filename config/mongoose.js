@@ -1,5 +1,10 @@
 const mongoose = require('mongoose') // 載入 mongoose
 
+// dotenv
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 // setting mongoose server
 mongoose.connect(process.env.MONGODB_URI) // 設定連線到 mongoDB
 // 取得資料庫連線狀態
