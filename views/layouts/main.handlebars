@@ -21,10 +21,19 @@
             <div class="container justify-content-between">
                 <a class="navbar-brand" href="/">
                     <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
-                        width="30" height="30" class="d-inline-block align-top" alt="我的餐廳清單">
-                    我的餐廳清單
+                        width="30" height="30" class="d-inline-block align-top" {{#if isAuthenticated}}
+                        alt="{{user.name}}的餐廳清單"> {{user.name}}的餐廳清單
+                    {{else}}
+                    alt="我的餐廳清單">
+                    我的餐廳清單{{/if}}
                 </a>
-                <a class="btn btn-outline-info my-2 my-sm-0" href="/new">+ 新增餐廳</a>
+                {{#if isAuthenticated}}
+                <div>
+                    <a class="btn btn-outline-info my-2 my-sm-0" href="/new">+ 新增餐廳</a>
+                    <a class="btn btn-outline-info my-2 my-sm-0 ml-sm-1" href="/users/logout">Logout</a>
+                </div>
+                {{else}}<a class="btn btn-outline-info my-2 my-sm-0" href="/users/login">Login</a>
+                {{/if}}
             </div>
         </nav>
 
