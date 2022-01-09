@@ -1,4 +1,5 @@
 const express = require('express')
+const session = require('express-session')
 const app = express()
 const exphbs = require('express-handlebars')
 const methodOverride = require('method-override') // 載入 method-override
@@ -17,6 +18,13 @@ app.use(express.static('public'))
 // setting body-parser
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
+
+app.use(session({
+  secret: 'JustTestSecret',
+  resave: false,
+  saveUninitialized: true
+}))
+
 // 將 request 導入路由器
 app.use(routes)
 
