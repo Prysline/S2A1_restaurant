@@ -21,7 +21,13 @@ const restaurantSchema = new Schema({
     type: Number,
     required: true
   },
-  description: String
+  description: String,
+  userId: { // 加入關聯設定
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    index: true,
+    required: true
+  }
 })
 
 // 會在 mongo 中建立名為 restaurant 的 collection

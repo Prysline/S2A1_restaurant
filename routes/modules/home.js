@@ -6,10 +6,11 @@ const Restaurant = require('../../Models/database')
 
 // 定義首頁路由
 router.get('/', (req, res) => {
+  const userId = req.user._id
   const submit = req.query.submit
   const sort = req.query.sort
   const listSort = getSortObj(sort)
-  Restaurant.find()
+  Restaurant.find({ userId })
     .lean()
     .sort(listSort)
     .then(restaurants => res.render('index', { restaurants, submit, sort }))
@@ -54,17 +55,9 @@ router.get('/new', (req, res) => {
 })
 router.post('/new', (req, res) => {
   const body = req.body
-  Restaurant.find()
-    .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
-    .then(restaurants => {
-      const length = Object.keys(restaurants).length - 1
-      body.id = restaurants[length].id + 1
-      Restaurant.create(body)
-        .then(() => {
-          res.redirect('/?submit=new')
-        })
-        .catch(error => console.error(error))
-    })
+  body.userId = req.user._id
+  Restaurant.create(body)
+    .then(() => res.redirect('/?submit=new'))
     .catch(error => console.error(error))
 })
 
