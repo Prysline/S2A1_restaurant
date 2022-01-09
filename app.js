@@ -4,6 +4,7 @@ const usePassport = require('./config/passport')
 const app = express()
 const exphbs = require('express-handlebars')
 const methodOverride = require('method-override') // 載入 method-override
+const flash = require('connect-flash')
 
 const routes = require('./routes')
 require('./config/mongoose')
@@ -26,11 +27,13 @@ app.use(session({
   saveUninitialized: true
 }))
 usePassport(app)
-
+app.use(flash())
 // middleware: res.locals
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.isAuthenticated()
   res.locals.user = req.user
+  res.locals.success_msg = req.flash('success_msg')
+  res.locals.warning_msg = req.flash('warning_msg')
   next()
 })
 
