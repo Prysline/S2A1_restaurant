@@ -2,7 +2,7 @@
 <div id="top"></div>
 <p>
   <a href="https://github.com/Prysline/S2A1_restaurant" target="_blank">
-  <img alt="Version" src="https://img.shields.io/badge/version-2.2.0-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-3.0.0-blue.svg?cacheSeconds=2592000" />
   </a>
   <a href="https://github.com/Prysline/S2A1_restaurant/blob/main/LICENSE" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/github/license/Prysline/S2A1_restaurant.svg" />
@@ -43,20 +43,31 @@
 
 一個以 Node.js 和 Express 製作的餐廳清單網站，能夠檢視目前所有的餐廳清單，並在站內搜尋餐廳名稱或餐廳類別。
 點擊餐廳圖片會進入餐廳詳細資訊的頁面。
+註冊不同帳號登入後可儲存不同的餐廳清單。
 
 ### 特色 Feature
-- 卡片式餐廳清單
+#### 登入
+- 使用者註冊
+- FACEBOOK登入
+#### 資料庫
 - 能用餐廳中英文名稱或是餐廳類型查找
 - 點擊餐廳圖片可瀏覽詳細資訊
 - 新增餐廳資訊
 - 修改餐廳資訊
 - 刪除餐廳資訊
-- 新增、修改、刪除餐廳資訊時有提示視窗
-- 首頁新增排序功能
+#### 使用者體驗
+- 卡片式餐廳清單
+- 使用者操作時有視窗反饋
+- 首頁排序功能
+
 
 ### 截圖 Screenshot
 <div>
   <img alt="index" src="https://github.com/Prysline/S2A1_restaurant/blob/main/public/images/index.png" style="display: inline-box; width: 12em;">
+  <img alt="login" src="https://github.com/Prysline/S2A1_restaurant/blob/main/public/images/login.png" style="display: inline-box; width: 12em;">
+  <img alt="register" src="https://github.com/Prysline/S2A1_restaurant/blob/main/public/images/register.png" style="display: inline-box; width: 12em;">
+</div>
+<div>
   <img alt="info" src="https://github.com/Prysline/S2A1_restaurant/blob/main/public/images/info.png" style="display: inline-box; width: 12em;">
   <img alt="new" src="https://github.com/Prysline/S2A1_restaurant/blob/main/public/images/new.png" style="display: inline-box; width: 12em;">
   <img alt="edit" src="https://github.com/Prysline/S2A1_restaurant/blob/main/public/images/edit.png" style="display: inline-box; width: 12em;">
@@ -73,6 +84,8 @@
 - [mongoDB](https://www.mongodb.com/) (v4.2.17)
 - [mongoose](https://mongoosejs.com/)
 - [Robo 3T](https://robomongo.org/)
+- [Facebook developer app](https://developers.facebook.com/apps)
+- .env（環境變數設定檔案）
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -104,6 +117,15 @@
    ```sh
    npm install
    ```
+4. 於 `/S2A1_restaurant` 建立 `.env` 檔案，可複製 `.env.example` 加以修改，或是參考以下內容設定：
+   ```
+   FACEBOOK_ID = FACEBOOK應用程式編號
+   FACEBOOK_SECRET = FACEBOOK應用程式密鑰
+   FACEBOOK_CALLBACK = http://localhost:3000/auth/facebook/callback
+   SESSION_SECRET = 可自訂任意文字
+   MONGODB_URI = mongodb://localhost/restaurant-list
+   PORT = 3000
+   ```
 4. 建立種子資料 （須連線 mongoDB 伺服器）
    ```sh
    npm run seed
@@ -117,6 +139,26 @@
    npm run dev
    ```
 6. 在瀏覽器網址列輸入 `http://localhost:3000/` 瀏覽網站
+7. 使用測試帳號登入
+   ```
+   #user1
+   email : user1@example.com
+   password : 12345678
+   ```
+   ```
+   #user2
+   email : user2@example.com
+   password : 12345678
+   ```
+#### 使用第三方登入
+1. 建立 [Facebook developer app](https://developers.facebook.com/apps)，新增 FACEBOOK登入
+2. 於 設定>基本資料 中，找到應用程式編號與密鑰，並將內容加入`.env`檔案中
+  ```
+   FACEBOOK_ID = FACEBOOK應用程式編號
+   FACEBOOK_SECRET = FACEBOOK應用程式密鑰
+   FACEBOOK_CALLBACK = http://localhost:3000/auth/facebook/callback
+  ```
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
