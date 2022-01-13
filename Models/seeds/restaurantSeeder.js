@@ -7,8 +7,7 @@ const dataList = require('./restaurant.json')
 // 連線成功
 db.once('open', () => {
   console.log('mongodb connected!')
-  const event = [SeederRegister(1), SeederRegister(2)]
-  Promise.all(event)
+    Promise.all([SeederRegister(1), SeederRegister(2)])
     .then(() => {
       console.log('get seeds done.')
       process.exit()
