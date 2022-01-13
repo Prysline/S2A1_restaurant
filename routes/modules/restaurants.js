@@ -2,7 +2,7 @@
 const express = require('express')
 const router = express.Router()
 // 引用 model
-const Restaurant = require('../../Models/database')
+const Restaurant = require('../../Models/restaurant')
 
 router.get('/:id', (req, res) => {
   const userId = req.user._id

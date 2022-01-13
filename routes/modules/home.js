@@ -2,7 +2,7 @@
 const express = require('express')
 const router = express.Router()
 // 引用 model
-const Restaurant = require('../../Models/database')
+const Restaurant = require('../../Models/restaurant')
 
 // 定義首頁路由
 router.get('/', (req, res) => {

@@ -1,6 +1,6 @@
 const db = require('../../config/mongoose') // 載入 mongoose
 const bcrypt = require('bcryptjs')
-const Restaurant = require('../database')
+const Restaurant = require('../restaurant')
 const User = require('../user')
 const dataList = require('./restaurant.json')
 
