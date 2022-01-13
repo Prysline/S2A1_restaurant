@@ -8,12 +8,10 @@ const Restaurant = require('../../Models/database')
 router.get('/', (req, res) => {
   const userId = req.user._id
   const submit = req.query.submit
-  const sort = req.query.sort
-  const listSort = getSortObj(sort)
+  const sortCN = 'SORT'
   Restaurant.find({ userId })
     .lean()
-    .sort(listSort)
-    .then(restaurants => res.render('index', { restaurants, submit, sort }))
+    .then(restaurants => res.render('index', { restaurants, submit, sortCN}))
     .catch(error => console.error(error))
 })
 
@@ -21,8 +19,8 @@ router.get('/search', (req, res) => {
   const userId = req.user._id
   const keyword = req.query.keyword.toLowerCase()
   const sort = req.query.sort
+  const sortCN = req.query.sortCN || 'SORT'
   const listSort = getSortObj(sort)
-  Restaurant.find()
   Restaurant.find({ userId })
     .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
     .sort(listSort)
@@ -35,10 +33,10 @@ router.get('/search', (req, res) => {
         )
       })
       if (restaurants.length > 0) {
-        res.render('index', { restaurants, keyword, sort })
+        res.render('index', { restaurants, keyword, sort, sortCN })
       } else {
         const searching = 'searching'
-        res.render('index', { keyword, searching })
+        res.render('index', { keyword, searching, sortCN })
       }
     })
     .catch(error => console.error(error))

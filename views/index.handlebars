@@ -6,6 +6,7 @@
         <h4 class="mb-2">尋找餐廳：</h4>
         <div class="input-group">
           <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類" aria-label="Restaurant Name..." value="{{keyword}}" aria-describedby="search-button">
+          <input type="hidden" name="sort" value="{{sort}}"><input type="hidden" name="sortCN" value="{{sortCN}}">
           <div class="input-group-append">
             <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
           </div>
@@ -24,14 +25,14 @@
     <div class="col-md-10 col-12 mx-auto">
       <div class="dropdown row">
         <button class="btn btn-secondary dropdown-toggle mb-2 ml-auto mr-4" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          SORT
+          {{sortCN}}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="/?sort=early">舊→新</a>
-          <a class="dropdown-item" href="/?sort=latest">新→舊</a>
-          <a class="dropdown-item" href="/?sort=nameAtoZ">A→Z</a>
-          <a class="dropdown-item" href="/?sort=nameZtoA">Z→A</a>
-          <a class="dropdown-item" href="/?sort=category">類別</a>
+          <a class="dropdown-item" href="/search?sort=early&sortCN=舊→新&keyword={{keyword}}">舊→新</a>
+          <a class="dropdown-item" href="/search?sort=latest&sortCN=新→舊&keyword={{keyword}}">新→舊</a>
+          <a class="dropdown-item" href="/search?sort=nameAtoZ&sortCN=A→Z&keyword={{keyword}}">A→Z</a>
+          <a class="dropdown-item" href="/search?sort=nameZtoA&sortCN=Z→A&keyword={{keyword}}">Z→A</a>
+          <a class="dropdown-item" href="/search?sort=category&sortCN=類別&keyword={{keyword}}">類別</a>
         </div>
       </div>
       {{#if restaurants}}
