@@ -7,31 +7,36 @@ const dataList = require('./restaurant.json')
 // 連線成功
 db.once('open', () => {
   console.log('mongodb connected!')
-  SeederRegister(1)
-  SeederRegister(2)
-  console.log('get seeds done')
+  const event = [SeederRegister(1), SeederRegister(2)]
+  Promise.all(event)
+    .then(() => {
+      console.log('get seeds done.')
+      process.exit()
+    })
 })
 
 // restaurentListIndex: 餐廳編號陣列
 function getSeederFromJSON (userId, restaurentListIndex) {
-  restaurentListIndex.forEach(id => {
+  return Promise.all(restaurentListIndex.map(id => {
     dataList.results[id - 1].userId = userId
-    Restaurant.create(dataList.results[id - 1])
-  })
+    return Restaurant.create(dataList.results[id - 1])
+  })).then(() => console.log(`restaurant ${restaurentListIndex} data created!`))
 }
 
 function SeederRegister (id) {
   const name = ''
   const email = `user${id}@example.com`
   const password = '12345678'
-  bcrypt.genSalt(10)
+  return bcrypt.genSalt(10)
     .then(salt => bcrypt.hash(password, salt))
     .then(hash => User.create({ name, email, password: hash }))
     .then(() => {
-      User.findOne({ email }).then(user => {
-        const i = (id - 1) * 3 + 1
-        getSeederFromJSON(user._id, [i, i + 1, i + 2])
-      })
+      console.log(`user: ${email} created!`)
+      return User.findOne({ email })
+    }).then(user => {
+      // user1 -> restaurant id: 1, 2, 3
+      // user2 -> restaurant id: 4, 5, 6
+      const i = (id - 1) * 3 + 1
+      return getSeederFromJSON(user._id, [i, i + 1, i + 2])
     })
-    .catch(err => console.log(err))
 }
